@@ -2,11 +2,37 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="QLSV">
   <DataContextMoniker Name="/QLSVDataContext" />
   <nestedChildShapes>
-    <classShape Id="510c9aff-b68d-405d-8ce2-0c0e3655f5c8" absoluteBounds="0.5, 1.25, 3.125, 1.9631982421875">
-      <DataClassMoniker Name="/QLSVDataContext/SinhVien" />
+    <classShape Id="0b89d3e9-6578-4438-9366-5387f9a4fac5" absoluteBounds="1.75, 0.625, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/QLSVDataContext/Bophan" />
       <nestedChildShapes>
-        <elementListCompartment Id="587daf14-5999-411e-86e9-1122f2933b23" absoluteBounds="0.515, 1.71, 3.0949999999999998, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="bd2ea714-14b1-498d-b554-c7dda9299888" absoluteBounds="1.7649999999999997, 1.085, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="bbd0cb20-3c07-4e3b-b559-7c45a4a30b18" absoluteBounds="1.75, 2.125, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/QLSVDataContext/ChucVu" />
+      <nestedChildShapes>
+        <elementListCompartment Id="572c5543-bc3a-448d-9422-92b80eaa845a" absoluteBounds="1.7649999999999997, 2.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="89edd868-2a2c-48ee-b12e-eb6c71de27e4" absoluteBounds="3.25, 3.875, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/QLSVDataContext/NhanVien" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ade7dff8-3f46-4f69-b7a4-afdf9dd6643d" absoluteBounds="3.2649999999999997, 4.335, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.75 : 1.22199625651042); (4.5000005 : 1.22199625651042); (4.5000005 : 3.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/QLSVDataContext/Bophan/Bophan_NhanVien" />
+      <nodes>
+        <classShapeMoniker Id="0b89d3e9-6578-4438-9366-5387f9a4fac5" />
+        <classShapeMoniker Id="89edd868-2a2c-48ee-b12e-eb6c71de27e4" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(3.5 : 3.31899251302083); (3.5 : 3.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/QLSVDataContext/ChucVu/ChucVu_NhanVien" />
+      <nodes>
+        <classShapeMoniker Id="bbd0cb20-3c07-4e3b-b559-7c45a4a30b18" />
+        <classShapeMoniker Id="89edd868-2a2c-48ee-b12e-eb6c71de27e4" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

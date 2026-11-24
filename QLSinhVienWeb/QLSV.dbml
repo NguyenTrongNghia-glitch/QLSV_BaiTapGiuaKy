@@ -1,12 +1,30 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QLSinhVien" Class="QLSVDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Table Name="dbo.SinhVien" Member="SinhViens">
-    <Type Name="SinhVien">
-      <Column Name="MaSV" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="HoTen" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="GioiTinh" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
-      <Column Name="Lop" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Email" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QLNV" Class="QLSVDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.Bophan" Member="Bophans">
+    <Type Name="Bophan">
+      <Column Name="MaBP" Type="System.String" DbType="NVarChar(4) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TenBP" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Bophan_NhanVien" Member="NhanViens" ThisKey="MaBP" OtherKey="MaBP" Type="NhanVien" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ChucVu" Member="ChucVus">
+    <Type Name="ChucVu">
+      <Column Name="MaCV" Type="System.String" DbType="NVarChar(3) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TenCV" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Association Name="ChucVu_NhanVien" Member="NhanViens" ThisKey="MaCV" OtherKey="MaCV" Type="NhanVien" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NhanVien" Member="NhanViens">
+    <Type Name="NhanVien">
+      <Column Name="MaNV" Type="System.String" DbType="NVarChar(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="HoNV" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="TenNV" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Luong" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Phai" Type="System.String" DbType="NVarChar(5)" CanBeNull="true" />
+      <Column Name="NgaySinh" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="MaCV" Type="System.String" DbType="NVarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="MaBP" Type="System.String" DbType="NVarChar(4) NOT NULL" CanBeNull="false" />
+      <Association Name="Bophan_NhanVien" Member="Bophan" ThisKey="MaBP" OtherKey="MaBP" Type="Bophan" IsForeignKey="true" />
+      <Association Name="ChucVu_NhanVien" Member="ChucVu" ThisKey="MaCV" OtherKey="MaCV" Type="ChucVu" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
