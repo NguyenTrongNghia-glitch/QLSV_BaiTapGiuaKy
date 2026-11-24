@@ -24,22 +24,58 @@ namespace QLSinhVienWeb
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// hfMaSV control.
+        /// hfMaNV control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfMaSV;
+        protected global::System.Web.UI.WebControls.HiddenField hfMaNV;
 
         /// <summary>
-        /// txtHoTen control.
+        /// txtMaNV control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHoTen;
+        protected global::System.Web.UI.WebControls.TextBox txtMaNV;
+
+        /// <summary>
+        /// txtHoNV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtHoNV;
+
+        /// <summary>
+        /// txtTenNV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTenNV;
+
+        /// <summary>
+        /// txtLuong control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtLuong;
+
+        /// <summary>
+        /// ddlPhai control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPhai;
 
         /// <summary>
         /// txtNgaySinh control.
@@ -51,31 +87,22 @@ namespace QLSinhVienWeb
         protected global::System.Web.UI.WebControls.TextBox txtNgaySinh;
 
         /// <summary>
-        /// ddlGioiTinh control.
+        /// ddlChucVu control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlGioiTinh;
+        protected global::System.Web.UI.WebControls.DropDownList ddlChucVu;
 
         /// <summary>
-        /// txtLop control.
+        /// ddlBoPhan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLop;
-
-        /// <summary>
-        /// txtEmail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEmail;
+        protected global::System.Web.UI.WebControls.DropDownList ddlBoPhan;
 
         /// <summary>
         /// btnThem control.
@@ -123,12 +150,12 @@ namespace QLSinhVienWeb
         protected global::System.Web.UI.WebControls.Label lblThongBao;
 
         /// <summary>
-        /// gvSinhVien control.
+        /// gvNhanVien control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvSinhVien;
+        protected global::System.Web.UI.WebControls.GridView gvNhanVien;
     }
 }

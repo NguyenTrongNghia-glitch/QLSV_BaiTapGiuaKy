@@ -1,116 +1,147 @@
 ﻿using System;
 using System.Linq;
+using System.Web.Configuration;
 
 namespace QLSinhVienWeb
 {
     public partial class QuanLySinhVien : System.Web.UI.Page
     {
-        QLSVDataContext db = new QLSVDataContext(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=QLSinhVien;Integrated Security=True");
+        QLSVDataContext db = new QLSVDataContext(WebConfigurationManager.ConnectionStrings["QLSVConnectionString"].ConnectionString);
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack) HienThi();
+            if (!IsPostBack)
+            {
+                NapDanhMuc();
+                HienThi();
+            }
+        }
+
+        // Nạp danh sách chức vụ, bộ phận vào DropDownList
+        void NapDanhMuc()
+        {
+            ddlChucVu.DataSource = db.ChucVus.ToList();
+            ddlChucVu.DataTextField = "TenCV";
+            ddlChucVu.DataValueField = "MaCV";
+            ddlChucVu.DataBind();
+
+            ddlBoPhan.DataSource = db.Bophans.ToList();
+            ddlBoPhan.DataTextField = "TenBP";
+            ddlBoPhan.DataValueField = "MaBP";
+            ddlBoPhan.DataBind();
         }
 
         // READ: hiển thị danh sách
         void HienThi()
         {
-            gvSinhVien.DataSource = db.SinhViens.OrderBy(s => s.MaSV).ToList();
-            gvSinhVien.DataBind();
+            gvNhanVien.DataSource = db.NhanViens.OrderBy(n => n.MaNV).ToList();
+            gvNhanVien.DataBind();
         }
 
-        // Đưa dữ liệu từ form vào đối tượng sinh viên
-        void GanDuLieu(SinhVien sv)
+        // Đưa dữ liệu từ form vào đối tượng nhân viên
+        void GanDuLieu(NhanVien nv)
         {
-            sv.HoTen = txtHoTen.Text.Trim();
+            nv.HoNV = txtHoNV.Text.Trim();
+            nv.TenNV = txtTenNV.Text.Trim();
+            double luong;
+            nv.Luong = double.TryParse(txtLuong.Text, out luong) ? (double?)luong : null;
+            nv.Phai = ddlPhai.SelectedValue;
             DateTime ns;
-            sv.NgaySinh = DateTime.TryParse(txtNgaySinh.Text, out ns) ? (DateTime?)ns : null;
-            sv.GioiTinh = ddlGioiTinh.SelectedValue;
-            sv.Lop = txtLop.Text.Trim();
-            sv.Email = txtEmail.Text.Trim();
+            nv.NgaySinh = DateTime.TryParse(txtNgaySinh.Text, out ns) ? (DateTime?)ns : null;
+            nv.MaCV = ddlChucVu.SelectedValue;
+            nv.MaBP = ddlBoPhan.SelectedValue;
         }
 
         void LamMoiForm()
         {
-            hfMaSV.Value = "";
-            txtHoTen.Text = "";
+            hfMaNV.Value = "";
+            txtMaNV.Text = "";
+            txtMaNV.Enabled = true;
+            txtHoNV.Text = "";
+            txtTenNV.Text = "";
+            txtLuong.Text = "";
             txtNgaySinh.Text = "";
-            txtLop.Text = "";
-            txtEmail.Text = "";
-            ddlGioiTinh.SelectedIndex = 0;
-            gvSinhVien.SelectedIndex = -1;
+            ddlPhai.SelectedIndex = 0;
+            ddlChucVu.SelectedIndex = 0;
+            ddlBoPhan.SelectedIndex = 0;
+            gvNhanVien.SelectedIndex = -1;
         }
 
         // CREATE
         protected void btnThem_Click(object sender, EventArgs e)
         {
-            if (txtHoTen.Text.Trim() == "")
+            if (txtMaNV.Text.Trim() == "" || txtTenNV.Text.Trim() == "")
             {
-                lblThongBao.Text = "Vui lòng nhập họ tên.";
+                lblThongBao.Text = "Vui lòng nhập mã và tên nhân viên.";
                 return;
             }
-            SinhVien sv = new SinhVien();
-            GanDuLieu(sv);
-            db.SinhViens.InsertOnSubmit(sv);
+            NhanVien nv = new NhanVien();
+            nv.MaNV = txtMaNV.Text.Trim();
+            GanDuLieu(nv);
+            db.NhanViens.InsertOnSubmit(nv);
             db.SubmitChanges();
             LamMoiForm();
             HienThi();
-            lblThongBao.Text = "Đã thêm sinh viên.";
+            lblThongBao.Text = "Đã thêm nhân viên.";
         }
 
         // Chọn một dòng trong GridView để sửa/xóa
-        protected void gvSinhVien_SelectedIndexChanged(object sender, EventArgs e)
+        protected void gvNhanVien_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int ma = Convert.ToInt32(gvSinhVien.SelectedDataKey.Value);
-            SinhVien sv = db.SinhViens.SingleOrDefault(s => s.MaSV == ma);
-            if (sv == null) return;
+            string ma = gvNhanVien.SelectedDataKey.Value.ToString();
+            NhanVien nv = db.NhanViens.SingleOrDefault(n => n.MaNV == ma);
+            if (nv == null) return;
 
-            hfMaSV.Value = sv.MaSV.ToString();
-            txtHoTen.Text = sv.HoTen;
-            txtNgaySinh.Text = sv.NgaySinh.HasValue ? sv.NgaySinh.Value.ToString("yyyy-MM-dd") : "";
-            ddlGioiTinh.SelectedValue = sv.GioiTinh;
-            txtLop.Text = sv.Lop;
-            txtEmail.Text = sv.Email;
+            hfMaNV.Value = nv.MaNV;
+            txtMaNV.Text = nv.MaNV;
+            txtMaNV.Enabled = false;
+            txtHoNV.Text = nv.HoNV;
+            txtTenNV.Text = nv.TenNV;
+            txtLuong.Text = nv.Luong.HasValue ? nv.Luong.Value.ToString() : "";
+            txtNgaySinh.Text = nv.NgaySinh.HasValue ? nv.NgaySinh.Value.ToString("yyyy-MM-dd") : "";
+            ddlPhai.SelectedValue = (nv.Phai != null && nv.Phai.ToLower() == "nam") ? "Nam" : "Nữ";
+            ddlChucVu.SelectedValue = nv.MaCV;
+            ddlBoPhan.SelectedValue = nv.MaBP;
             lblThongBao.Text = "";
         }
 
         // UPDATE
         protected void btnSua_Click(object sender, EventArgs e)
         {
-            if (hfMaSV.Value == "")
+            if (hfMaNV.Value == "")
             {
-                lblThongBao.Text = "Hãy chọn một sinh viên trong danh sách trước.";
+                lblThongBao.Text = "Hãy chọn một nhân viên trong danh sách trước.";
                 return;
             }
-            int ma = int.Parse(hfMaSV.Value);
-            SinhVien sv = db.SinhViens.SingleOrDefault(s => s.MaSV == ma);
-            if (sv != null)
+            string ma = hfMaNV.Value;
+            NhanVien nv = db.NhanViens.SingleOrDefault(n => n.MaNV == ma);
+            if (nv != null)
             {
-                GanDuLieu(sv);
+                GanDuLieu(nv);
                 db.SubmitChanges();
                 LamMoiForm();
                 HienThi();
-                lblThongBao.Text = "Đã cập nhật sinh viên.";
+                lblThongBao.Text = "Đã cập nhật nhân viên.";
             }
         }
 
         // DELETE
         protected void btnXoa_Click(object sender, EventArgs e)
         {
-            if (hfMaSV.Value == "")
+            if (hfMaNV.Value == "")
             {
-                lblThongBao.Text = "Hãy chọn một sinh viên trong danh sách trước.";
+                lblThongBao.Text = "Hãy chọn một nhân viên trong danh sách trước.";
                 return;
             }
-            int ma = int.Parse(hfMaSV.Value);
-            SinhVien sv = db.SinhViens.SingleOrDefault(s => s.MaSV == ma);
-            if (sv != null)
+            string ma = hfMaNV.Value;
+            NhanVien nv = db.NhanViens.SingleOrDefault(n => n.MaNV == ma);
+            if (nv != null)
             {
-                db.SinhViens.DeleteOnSubmit(sv);
+                db.NhanViens.DeleteOnSubmit(nv);
                 db.SubmitChanges();
                 LamMoiForm();
                 HienThi();
-                lblThongBao.Text = "Đã xóa sinh viên.";
+                lblThongBao.Text = "Đã xóa nhân viên.";
             }
         }
 
